@@ -21,13 +21,10 @@ public class ClientSession implements Runnable {
     @Override
     public void run() {
         try {
-            /* Получаем заголовок сообщения от клиента */
             String header = readHeader();
             System.out.println(header + "\n");
-            /* Получаем из заголовка указатель на интересующий ресурс */
             String url = getURIFromHeader(header);
             System.out.println("Resource: " + url + "\n");
-            /* Отправляем содержимое ресурса клиенту */
             int code = send(url);
             System.out.println("Result code: " + code + "\n");
         } catch (IOException e) {
@@ -47,9 +44,7 @@ public class ClientSession implements Runnable {
     }
 
     private void initialize() throws IOException {
-        /* Получаем поток ввода, в который помещаются сообщения от клиента */
         in = socket.getInputStream();
-        /* Получаем поток вывода, для отправки сообщений клиенту */
         out = socket.getOutputStream();
     }
 
@@ -109,13 +104,7 @@ public class ClientSession implements Runnable {
         return buffer.toString();
     }
 
-    /**
-     * Возвращает комментарий к коду результата отправки.
-     *
-     * @param code
-     *           код результата отправки.
-     * @return комментарий к коду результата отправки.
-     */
+
     private String getAnswer(int code) {
         switch (code) {
             case 200:
